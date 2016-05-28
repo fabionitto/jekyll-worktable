@@ -64,9 +64,17 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y git
+
+    curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -
+    curl -sSL https://get.rvm.io | bash -s stable --ruby
+    
+    source /etc/profile.d/rvm.sh
+
+    gem install jekyll bundle
+  SHELL
+
   config.ssh.insert_key = false
 end
